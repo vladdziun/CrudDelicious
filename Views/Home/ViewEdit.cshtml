@@ -1,0 +1,28 @@
+@using CrudDelicious.Models
+@model Dish
+<a href ="/">Home</a>
+<p>Edit @Model.Name</p>
+<form asp-action="Update" asp-controller="Home" method="post">
+    <span asp-validation-for="Name"></span>
+    <label asp-for="Name"></label><br>
+    <input asp-for="Name"><br>
+    <span asp-validation-for="Chef"></span>
+    <label asp-for="Chef"></label><br>
+    <input asp-for="Chef"><br>
+    <span asp-validation-for="Tastiness"></span>
+    <label asp-for="Tastiness"></label><br>
+    <select asp-for="Tastiness">
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+    </select><br>
+    <span asp-validation-for="Calories"></span>
+    <label asp-for="Calories"></label><br>
+    <input asp-for="Calories"><br>
+    <span asp-validation-for="Description"></span>
+    <label asp-for="Description"></label><br>
+    <input asp-for="Description"><br>
+    <input value="Add a Dish" type="submit">    
+</form>
