@@ -1,0 +1,13 @@
+@using CrudDelicious.Models
+@model List<Chef>
+<h1>Welcome to CRUDelicious</h1>
+<p>List of Chefs</p>
+<a href ="/">Home</a><br><br>
+<a href ="/new">Add a Dish</a><br><br>
+<a href ="/new/chef">Add a Chef</a><br><br>
+@{
+    foreach (var m in @Model)
+    {
+        <p>@m.FirstName @(DateTime.Today.Year- m.BirthDate.Year) @m.DishesMade.Count</p>
+    }
+}

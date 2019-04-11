@@ -8,5 +8,6 @@ namespace CrudDelicious.Models
         public CrudDeliciousContext(DbContextOptions options) : base(options) { }
 
          public DbSet<Dish> Dishes { get;set;}
+         public DbSet<Chef> Chefs { get;set;}
     }
 }

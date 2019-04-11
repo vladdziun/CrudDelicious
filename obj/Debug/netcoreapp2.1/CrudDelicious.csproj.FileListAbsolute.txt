@@ -27,3 +27,5 @@ D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\CrudDelicious.csproj.
 D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\Razor\Views\Home\New.g.cshtml.cs
 D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\Razor\Views\Home\ViewDish.g.cshtml.cs
 D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\Razor\Views\Home\ViewEdit.g.cshtml.cs
+D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\Razor\Views\Home\NewChef.g.cshtml.cs
+D:\CodingDojo\csharp\CrudDelicious\obj\Debug\netcoreapp2.1\Razor\Views\Home\Chefs.g.cshtml.cs

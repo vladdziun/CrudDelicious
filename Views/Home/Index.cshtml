@@ -2,10 +2,12 @@
 @model List<Dish>
 <h1>Welcome to CRUDelicious</h1>
 <p>Checkout some recent dishes!</p>
+<a href ="/chefs">Chefs</a><br><br>
 <a href ="/new">Add a Dish</a><br><br>
+<a href ="/new/chef">Add a Chef</a><br><br>
 @{
     foreach (var m in @Model)
     {
-        <p><a href =@m.id>@m.Name</a> by @m.Chef</p>
+        <p><a href =@m.DishId>@m.Name</a> by @m.Creator.FirstName</p>
     }
 }

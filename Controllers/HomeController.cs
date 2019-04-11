@@ -22,21 +22,39 @@ namespace CrudDelicious.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // Get all Users
             List<Dish> AllDishes = dbContext.Dishes.ToList();
 
-            // List<User> Jeffersons = dbContext.Users.Where(u => u.LastName == "Jefferson");
-            // // Get the 5 most recently added Users
-            // List<User> MostRecent = dbContext.Users
-            //     .OrderByDescending(u => u.CreatedAt)
-            //     .Take(5)
-            //     .ToList();
+            List<Dish> dishesWithCreators = dbContext.Dishes
+            .Include(dish => dish.Creator)
+            .ToList();
+
             return View(AllDishes);
+        }
+
+        [Route("/chefs")]
+        [HttpGet]
+        public IActionResult Chefs()
+        {
+            List<Chef> AllChefs = dbContext.Chefs.ToList();
+            List<Dish> dishesWithCreators = dbContext.Dishes
+            .Include(dish => dish.Creator)
+            .ToList();
+
+            return View(AllChefs);
         }
 
         [Route("/new")]
         [HttpGet]
         public IActionResult New()
+        {
+            List<Chef> AllChefs = dbContext.Chefs.ToList();
+            ViewBag.Chefs = AllChefs;
+            return View();
+        }
+        
+        [Route("/new/chef")]
+        [HttpGet]
+        public IActionResult NewChef()
         {
             return View();
         }
@@ -55,12 +73,30 @@ namespace CrudDelicious.Controllers
                 return View("New");
         }
 
+        [Route("/create/chef")]
+        [HttpPost]
+        public IActionResult CreateChef(Chef newChef)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Add(newChef);
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                return View("New");
+        }
+
         [Route("/{id}")]
         [HttpGet]
         public IActionResult ViewDish(int id)
         {
-            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish=>
-            dish.id == id);
+            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish =>
+            dish.DishId == id);
+
+            List<Dish> dishesWithCreators = dbContext.Dishes
+            .Include(dish => dish.Creator)
+            .ToList();
             return View(oneDish);
         }
 
@@ -68,31 +104,32 @@ namespace CrudDelicious.Controllers
         [HttpGet]
         public IActionResult DeleteDish(int id)
         {
-            Dish DishToDelete = dbContext.Dishes.FirstOrDefault(dish=>
-            dish.id == id);
+            Dish DishToDelete = dbContext.Dishes.FirstOrDefault(dish =>
+            dish.DishId == id);
             dbContext.Dishes.Remove(DishToDelete);
             dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [Route("/edit/{id}")]
         [HttpGet]
         public IActionResult ViewEdit(int id)
         {
-            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish=>
-            dish.id == id);
+            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish =>
+            dish.DishId == id);
             return View(oneDish);
         }
+
         [Route("/update/{id}")]
         [HttpPost]
         public IActionResult Update(Dish updatedDish, int id)
         {
-
-            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish=>
-            dish.id == id);
+            Dish oneDish = dbContext.Dishes.FirstOrDefault(dish =>
+            dish.DishId == id);
             if (ModelState.IsValid)
             {
                 oneDish.Name = updatedDish.Name;
-                oneDish.Chef = updatedDish.Chef;
+                oneDish.Creator = updatedDish.Creator;
                 oneDish.Tastiness = updatedDish.Tastiness;
                 oneDish.Calories = updatedDish.Calories;
                 oneDish.Description = updatedDish.Description;
@@ -103,6 +140,5 @@ namespace CrudDelicious.Controllers
             else
                 return RedirectToAction("ViewEdit");
         }
-
     }
 }

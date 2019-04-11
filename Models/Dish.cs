@@ -7,13 +7,12 @@ namespace CrudDelicious.Models
 
     {
         [Key]
-        public int id { get; set; }
+        public int DishId { get; set; }
         [Required]
         [MinLength(3)]
         public string Name { get; set; }
-        [Required]
-        [MinLength(3)]
-        public string Chef { get; set; }
+        public Chef Creator { get; set; }
+        public int ChefId {get; set; }
         public int Tastiness { get; set; }
         public int Calories { get; set; }
         public string Description { get; set; }
